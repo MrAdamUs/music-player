@@ -73,18 +73,29 @@ const Player = ({
       Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2)
     );
   };
-
+  //Add the Style
+  const trackAnim = {
+    transform: `translateX(${songIfo.animationPercentage}%)`,
+  };
   return (
     <div className='player'>
       <div className='time-control'>
         <p>{getTime(songIfo.currentTime)}</p>
-        <input
-          min={0}
-          max={songIfo.duration || 0}
-          value={songIfo.currentTime}
-          type='range'
-          onChange={dragHandler}
-        />
+        <div
+          style={{
+            background: `linear-gradient(to right, ${currentSong.color[0]},${currentSong.color[1]})`,
+          }}
+          className='track'
+        >
+          <input
+            min={0}
+            max={songIfo.duration || 0}
+            value={songIfo.currentTime}
+            type='range'
+            onChange={dragHandler}
+          />
+          <div style={trackAnim} className='animate-track'></div>
+        </div>
         <p>{songIfo.duration ? getTime(songIfo.duration) : '0:00'}</p>
       </div>
       <div className='play-control'>
